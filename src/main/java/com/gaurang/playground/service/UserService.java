@@ -31,4 +31,22 @@ public class UserService {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+    
+    public User update(Long id, UserRequest request) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+
+        return repository.save(user);
+    }
+
+    public void delete(Long id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        repository.delete(user);
+    }
+
 }
